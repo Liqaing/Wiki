@@ -9,7 +9,10 @@
 
     <ul>
         {% for entry in entries %}
-            <li>{{ entry }}</li>
+            <li>
+                <!-- list of links that will redirect to wiki/[entry] url  -->
+                <a href="wiki/{{entry}}">{{ entry }}</a>
+            </li>
         {% endfor %}
     </ul>
 

@@ -21,7 +21,7 @@ def entry_page(request, title):
     # check if entry not exist
     if entry == None:
         # give entry variabe a markdown text
-        entry = f"**{title}** Does Not Exist"
+        entry = f"# Error 404 \n **{title}** Does Not Exist"
 
     # convert markdown file into HTML
     entry = markdown.markdown(entry)

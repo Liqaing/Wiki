@@ -12,7 +12,7 @@ def index(request):
 
 def entry_page(request, title):
 
-    # Capitalized title from input
+    # Capitalized title from input in url
     title = str(title).capitalize()
 
     # get entry from encyclopedia using get_entry function
@@ -32,4 +32,21 @@ def entry_page(request, title):
     })
 
 def search_entry(request):
-    return HttpResponse("Entry")
+    if request.method == "POST":
+
+        # Get the input from HTML form
+        title = request.POST.get("q")
+
+        # Capitalized title
+        title = str(title).capitalize()
+
+        # Get entry from encyclopedia
+        entry = util.get_entry(title)
+
+        # Convert markdown file into Html
+        entry = markdown.markdown(entry)
+
+    return render(request, "encyclopedia/entry.html", {
+        "title": title,
+        "entry": entry
+    })

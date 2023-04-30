@@ -30,3 +30,6 @@ def entry_page(request, title):
         "title": title,
         "entry": entry
     })
+
+def search_entry(request):
+    return HttpResponse("Entry")

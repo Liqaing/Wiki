@@ -11,9 +11,7 @@
         {% for entry in entries %}
             <li>
                 <!-- list of links that will redirect to wiki/[entry] url  -->
-                <a href="wiki/{{ entry }}">{{ entry }}</a>
-
-                <!-- <a href=" url 'entry_page' title ">{{ entry }}</a> -->
+                <a href="{% url 'entry_page' title %}">{{ entry }}</a>
             </li>
         {% endfor %}
     </ul>

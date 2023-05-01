@@ -86,3 +86,7 @@ def search_entry(request):
         "title": title,
         "entry": entry
     })
+
+def create_new_entry(request):
+
+    return render(request, "encyclopedia/create_new_entry.html")

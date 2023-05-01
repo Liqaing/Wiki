@@ -23,6 +23,14 @@ def entry_page(request, title):
         # give entry variabe a markdown text
         entry = f"# Error 404 \n **{title}** Does Not Exist"
 
+        # Convert markdown file into HTML
+        entry = markdown.markdown(entry)
+
+        # Render Error 404 page
+        return render(request, "encyclopedia/none_exist.html", {
+            "content": entry
+        })
+
     # convert markdown file into HTML
     entry = markdown.markdown(entry)
 
@@ -53,6 +61,16 @@ def search_entry(request):
             for entry in entries_list:
                 if title.lower() in entry.lower():
                     new_entries_list.append(entry)
+
+            # If there is no entry with title as substring
+            if not new_entries_list:
+                # Show Error 404 message
+                message = f"# Error 404 \n **{title}** Does Not Exist"
+                message = markdown.markdown(message)
+
+                return render(request, "encyclopedia/none_exist.html", {
+                    "content": message
+                })
 
             return render(request, "encyclopedia/index.html", {
                 "entries": new_entries_list

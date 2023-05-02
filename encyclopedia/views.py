@@ -2,8 +2,14 @@ from django.shortcuts import render
 
 from . import util
 
+# Module that I have imported
 import markdown
 from django.http import HttpResponse
+from django import forms
+
+#  New class for a form use to create new entry
+class NewEntryForm(forms.Form):
+    title = forms.CharField(label="Entry Title")
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -89,4 +95,6 @@ def search_entry(request):
 
 def create_new_entry(request):
 
-    return render(request, "encyclopedia/create_new_entry.html")
+    return render(request, "encyclopedia/create_new_entry.html", {
+        "form": NewEntryForm
+    })

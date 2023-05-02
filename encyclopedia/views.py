@@ -7,9 +7,10 @@ import markdown
 from django.http import HttpResponse
 from django import forms
 
-#  New class for a form use to create new entry
+#  New class for a form that use to create new entry
 class NewEntryForm(forms.Form):
     title = forms.CharField(label="Entry Title")
+    entry_content = forms.CharField(widget=forms.Textarea(attrs={"rows":"1", "cols":"40"}))
 
 def index(request):
     return render(request, "encyclopedia/index.html", {

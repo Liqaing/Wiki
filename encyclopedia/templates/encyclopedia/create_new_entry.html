@@ -1,9 +1,19 @@
 {% extends "encyclopedia/layout.html" %}
 
+{% load static %}
+
 {% block title %}
     Creat New Entry
 {% endblock %}
 
 {% block body %}
-    {{ form }}
+    <h1>Create A New Entry</h1>
+    <form>
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+    
+    <!-- I guess bootstrap styling is interfer with my styling so remove bootstrap style first -->
+    <!-- <textarea class="textarea" cols="100" rows="5"></textarea> -->
 {% endblock %}

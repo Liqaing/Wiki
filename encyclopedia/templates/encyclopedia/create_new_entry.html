@@ -11,10 +11,9 @@
     <form>
         {% csrf_token %}
         {{ form }}
-        <input type="submit">
-        <textarea class="form-control col-lg-6" rows="5"></textarea>
+        <input type="submit" class="btn btn-primary btn-sm mt-2" value="Save Entry">
+        <!-- <textarea class="form-control col-lg-6" rows="5"></textarea> -->
     </form>
-    
     <!-- I guess bootstrap styling is interfer with my styling so remove bootstrap style first -->
     <!-- <textarea class="textarea" cols="100" rows="5"></textarea> -->
 {% endblock %}

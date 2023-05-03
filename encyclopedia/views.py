@@ -9,8 +9,8 @@ from django import forms
 
 #  New class for a form that use to create new entry
 class NewEntryForm(forms.Form):
-    title = forms.CharField(label="Entry Title")
-    entry_content = forms.CharField(widget=forms.Textarea(attrs={"rows":"4"}))
+    title = forms.CharField(label="Entry Title", widget=forms.TextInput(attrs={"class": "col-12", "placeholder":"Entry Title"}))
+    entry_content = forms.CharField(widget=forms.Textarea(attrs={"class":"form-control col-12", "rows":"12", "placeholder":"Entry Content"}))
 
 def index(request):
     return render(request, "encyclopedia/index.html", {

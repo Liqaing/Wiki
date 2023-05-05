@@ -7,6 +7,7 @@ import markdown
 from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 from django.urls import reverse
+from django.shortcuts import redirect
 
 #  New class for a form that use to create new entry
 class NewEntryForm(forms.Form):
@@ -109,8 +110,10 @@ def create_new_entry(request):
             # Save the entry content to disk
             util.save_entry(title, entry_content)
 
-            # Redirect to index page
-            return HttpResponseRedirect(reverse("index"))
+            # Redirect to new entry page
+            # return HttpResponseRedirect(reverse("entry_page"))
+            # Redirect to a dynamic url
+            return redirect(reverse("entry_page",kwargs={'title':str(title)}))
 
         # If form is not valid, then send back existing form data along with error message
         return render(request, "encyclopedia/create_new_entry.html", {

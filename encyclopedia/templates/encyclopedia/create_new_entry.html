@@ -1,0 +1,28 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Creat New Entry
+{% endblock %}
+
+{% block body %}
+    <h1>Create A New Entry</h1>
+    <form action="{% url 'create_new_entry' %}" method="POST">
+        {% csrf_token %}
+        <!-- if user had already submit the form before but got title error beacuse of existing title entries, then display the error -->
+        <!-- Check if tittle_error varible is not empty -->
+        {% if title_error|length %}
+            <ul>
+                <li>
+                    {{ title_error }}
+                </li>
+            </ul>
+        {% endif %}
+
+        {{ form }}
+        <input type="submit" class="btn btn-primary btn-sm mt-2" value="Save Entry">    
+    </form>
+    <!-- I guess bootstrap styling is interfer with my styling so remove bootstrap style first -->
+    <!-- <textarea class="textarea" cols="100" rows="5"></textarea> -->
+{% endblock %}

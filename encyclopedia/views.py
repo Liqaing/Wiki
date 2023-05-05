@@ -98,7 +98,9 @@ def create_new_entry(request):
             if title in entries_list:
                 # Return error message back
                 return render(request, "encyclopedia/create_new_entry.html",{
-                    "form": form
+                    "form": form,
+                    # Provided error message to display to user
+                    "title_error": "This entry title is already exist, try other title."
                 })
             
             # If there is not problem with submitted form, then save the entry
@@ -108,7 +110,12 @@ def create_new_entry(request):
             util.save_entry(title, entry_content)
 
             # Redirect to index page
-            return HttpResponseRedirect(reverse("index")) 
+            return HttpResponseRedirect(reverse("index"))
+
+        # If form is not valid, then send back existing form data along with error message
+        return render(request, "encyclopedia/create_new_entry.html", {
+            "form": form
+        })
 
     return render(request, "encyclopedia/create_new_entry.html", {
         "form": NewEntryForm

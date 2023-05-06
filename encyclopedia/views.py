@@ -89,48 +89,6 @@ def search_entry(request):
             "entries": new_list_entries
         })
 
-            
-
-
-# def search_entry(request):
-#     if request.method == "POST":
-#         # Get the input from HTML form
-#         title = str(request.POST.get("q"))
-#         # Get entry from encyclopedia
-#         entry = util.get_entry(title)
-#         # If title doesn't exist in encycopedia
-#         if entry == None:
-#             # Get all entries name
-#             entries_list = util.list_entries()
-#             # Create new list to store entry that have title as its substring
-#             new_entries_list = []
-#             # Check if any entries name has title as its substring
-#             for entry in entries_list:
-#                 if title.lower() in entry.lower():
-#                     new_entries_list.append(entry)
-#             # If there is no entry with title as substring
-#             if not new_entries_list:
-#                 # Show Error 404 message
-#                 message = f"# Error 404 \n **{title}** Does Not Exist"
-#                 message = markdown.markdown(message)
-
-#                 return render(request, "encyclopedia/none_exist.html", {
-#                     "content": message
-#                 })
-            
-#             return render(request, "encyclopedia/index.html", {
-#                 "entries": new_entries_list
-#             })
-#         # Capitalized title
-#         title = title.capitalize()
-#         # Convert markdown file into Html
-#         entry = markdown.markdown(entry)
-
-#     return render(request, "encyclopedia/entry.html", {
-#         "title": title,
-#         "entry": entry
-#     })
-
 def create_new_entry(request):
     # If form is submitted through POST request
     if request.method == "POST":
@@ -166,3 +124,6 @@ def create_new_entry(request):
     return render(request, "encyclopedia/create_new_entry.html", {
         "form": NewEntryForm
     })
+
+def edit_entry(request):
+    return HttpResponse("Hello")

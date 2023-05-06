@@ -14,10 +14,8 @@ class NewEntryForm(forms.Form):
     title = forms.CharField(label="Entry Title", widget=forms.TextInput(attrs={"class": "col-12", "placeholder":"Entry Title"}))
     entry_content = forms.CharField(widget=forms.Textarea(attrs={"class":"form-control col-12", "rows":"12", "placeholder":"Entry Content"}))
 
-# Search function to search if entry title is already exist in entry list, specify that the parameter of the function is a string
-def search_title(title: str):
-    # List to store all list entries name
-    list_entries = util.list_entries()
+# Search function to search if entry title is already exist in entry list, specify that the parameter of the function is a string and entries list 
+def search_title(title: str, list_entries):
     # Check if the tile provided exist in list of entries title case-insensitively
     if title.casefold() in (entry_title.casefold() for entry_title in list_entries):
         # Return true if title existed else return false
@@ -60,29 +58,33 @@ def search_entry(request):
     if request.method == "POST":
         # Get the input from the form
         title = str(request.POST.get("q")).upper()
-        # Check if title is exist in the list of entries name
-        if search_title(title):
-            # If true redirect user to that entry page
-            return redirect(reverse("entry_page", kwargs={'title':title}))
-        # If not exist, find all entries name which have that title as its substring
         # Get all entries list name
         list_entries = util.list_entries()
+        # Check if title is exist in the list of entries name
+        if search_title(title, list_entries):
+            # If true (title exist in list entries) redirect user to that entry page
+            return redirect(reverse("entry_page", kwargs={'title':title}))
+        
+        # If not, find all entries name which have that title as its substring
         # Create new list to store all entry that have title as substring
         new_list_entries = []
-        # Check for every entry name in the list to find which entry name has title as its substring
+        # Check for every entry name in the list entries to find which entry name has title as its substring
         for entry in list_entries:
             if title.casefold() in entry.casefold():
+                # For every entry name that do, add that entry name to the new list entries
                 new_list_entries.append(entry)
+
         # If there is no entry with title as its substring
         if not new_list_entries:
             # Show Error 404 message
             message = f"# Error 404 \n **{title}** Does Not Exist"
             message = markdown.markdown(message)
-
+            # Render Error message
             return render(request, "encyclopedia/none_exist.html", {
                 "content": message
             })
         
+        # Render new list entries that have input title as its substring back
         return render(request, "encyclopedia/index.html", {
             "entries": new_list_entries
         })
@@ -138,8 +140,8 @@ def create_new_entry(request):
         if form.is_valid():
             # Get the entry title that was submitted
             title = form.cleaned_data["title"]
-            # Check if that entry title is an already existed entry title
-            if search_title(title):
+            # Check if that entry title is an already existed entry title in list entries
+            if search_title(title, list_entries=util.list_entries()):
                 # Return error message back
                 return render(request, "encyclopedia/create_new_entry.html",{
                     "form": form,

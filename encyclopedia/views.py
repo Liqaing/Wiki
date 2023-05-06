@@ -29,11 +29,11 @@ def index(request):
 
 def entry_page(request, title):
 
-    # Capitalized title from input in url
-    title = str(title).upper()
-    # get entry from encyclopedia using get_entry function
+    # Get title from input in url
+    title = title
+    # Get entry from encyclopedia using get_entry function
     entry = util.get_entry(title)
-    # check if entry not exist
+    # Check if entry not exist
     if entry == None:
         # give entry variabe a markdown text
         entry = f"# Error 404 \n **{title}** Does Not Exist"
@@ -129,6 +129,17 @@ def create_new_entry(request):
 def edit_entry(request, title):
     # Get parameter title value from the dynamic url 
     title = title
+
+    # If user submit form that they edit
+    if request.method == "POST":
+        # Get the edited version of that entry page
+        edited_entry_content = request.POST.get("entry_content")
+        # Save the newly edit entry back along with the same title that they provide through dynamic url
+        util.save_entry(title, edited_entry_content)
+        # Redirect user back to entry page
+        return redirect(reverse("entry_page",kwargs={'title': title}))
+    
+    # If user didn't submit the edited version of entry, rather they click on the link to edit entry, then render a form with textarea that have entry markdown content for them to edit 
     # Get the entry content to provided to the user
     entry_content = util.get_entry(title)
 

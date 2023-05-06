@@ -125,5 +125,15 @@ def create_new_entry(request):
         "form": NewEntryForm
     })
 
-def edit_entry(request):
-    return HttpResponse("Hello")
+# Function will run when user get to 'edit_entry' url, take in title as its parameter from dynamic url
+def edit_entry(request, title):
+    # Get parameter title value from the dynamic url 
+    title = title
+    # Get the entry content to provided to the user
+    entry_content = util.get_entry(title)
+
+    # Render template and display the entry content
+    return render(request, "encyclopedia/edit_entry.html", {
+        "title": title,
+        "content": entry_content
+    })

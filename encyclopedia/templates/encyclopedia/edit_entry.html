@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <textarea>
-        {{ content }}
-    </textarea>
+    <h2>Editing {{ title }}</h2>
+    <form>
+        <textarea class="form-control col-12" rows="20">{{ content }}</textarea>
+        <input type="submit" value="Save Entry" class="btn btn-primary btn-sm mt-2">
+    </form>
 {% endblock %}

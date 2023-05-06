@@ -12,7 +12,7 @@ from django.shortcuts import redirect
 #  New class for a form that use to create new entry
 class NewEntryForm(forms.Form):
     title = forms.CharField(label="Entry Title", widget=forms.TextInput(attrs={"class": "col-12", "placeholder":"Entry Title"}))
-    entry_content = forms.CharField(widget=forms.Textarea(attrs={"class":"form-control col-12", "rows":"12", "placeholder":"Entry Content"}))
+    entry_content = forms.CharField(widget=forms.Textarea(attrs={"class":"form-control col-12", "rows": "20", "placeholder":"Entry Content"}))
 
 # Search function to search if entry title is already exist in entry list, specify that the parameter of the function is a string and entries list 
 def search_title(title: str, list_entries):

@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 from django.urls import reverse
 from django.shortcuts import redirect
+import random
 
 #  New class for a form that use to create new entry
 class NewEntryForm(forms.Form):
@@ -148,3 +149,11 @@ def edit_entry(request, title):
         "title": title,
         "content": entry_content
     })
+
+def random_entry(request):
+    # Get all entry list
+    list_entry = util.list_entries()
+    # Random for a item from list entry
+    random_entry = random.choice(list_entry)
+    # Redirect user to that entry page, providing entry title for function entry_page that associate with dynamic url to work
+    return redirect(reverse("entry_page", kwargs={'title':random_entry}))
